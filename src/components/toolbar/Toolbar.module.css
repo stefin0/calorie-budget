@@ -1,0 +1,65 @@
+.toolbar {
+  display: flex;
+  justify-content: end;
+  padding: 1rem;
+}
+
+.DialogOverlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
+}
+
+.DialogContent {
+  display: grid;
+  gap: 2rem;
+  padding: 1rem;
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 281px; /* min px for no x-scroll */
+}
+
+.recipeTitle, .actionButtons {
+  justify-self: center;
+}
+
+.ingredientsContainer {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.ingredientInfo {
+  display: grid;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ingredientInfo >* input[type="number"],
+.ingredientInfo >* select {
+  width: 7ch;
+}
+
+.ingredientInfo >* input[name="name"] {
+  max-width: calc(3*7ch + 32px);
+}
+
+.labelInput {
+  display: grid;
+}
+
+.quantityRow, .macrosRow, .actionButtons {
+  display: flex;
+  gap: 0 1rem;
+}
+
+.newIngredientButton {
+  justify-self: left;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(239, 239, 239);
+  border: 1px solid rgb(118, 118, 118);
+}

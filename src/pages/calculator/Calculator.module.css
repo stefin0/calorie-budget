@@ -1,3 +1,8 @@
+.formContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -5,11 +10,9 @@
   gap: 1rem;
   border: 1px solid black;
   padding: 1rem;
-  max-width: 205px;
-  margin: 0 auto;
 }
 
-.group {
+.labelInput {
   display: flex;
   flex-direction: column;
 }
