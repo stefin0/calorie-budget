@@ -2,6 +2,8 @@ import { useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import Style from "./Budget.module.css";
 import Toolbar from "../../components/toolbar/Toolbar";
+import * as Separator from "@radix-ui/react-separator";
+import { RecipeProps } from "../../types";
 
 function Budget() {
   const [caloriesEaten, setCaloriesEaten] = useLocalStorage(
@@ -10,8 +12,12 @@ function Budget() {
   );
   const [caloriesTotal /*setCaloriesTota*/] = useLocalStorage("bmr", "0");
   const [input, setInput] = useState("");
-
   const caloriesRatio = (caloriesEaten / caloriesTotal) * 100;
+  const [recipes, setRecipes] = useLocalStorage("recipes", []);
+
+  function addRecipe(newRecipe: object) {
+    setRecipes([...recipes, newRecipe]);
+  }
 
   return (
     <>
@@ -33,9 +39,34 @@ function Budget() {
       </button>
 
       {/* TOOLBAR */}
-      <Toolbar />
+      <Toolbar addRecipe={addRecipe} />
 
-      <h1>{caloriesRatio}</h1>
+      <h1>{caloriesRatio.toFixed(2)}</h1>
+
+      {/* RECIPES */}
+      <div className={Style.recipesContainer}>
+        {recipes.map((recipe: RecipeProps) => {
+          const totalCalories = recipe.ingredient.reduce(
+            (total, ingredient) => {
+              return (
+                total +
+                9 * +ingredient.fat +
+                4 * +ingredient.carb +
+                4 * +ingredient.protein
+              );
+            },
+            0,
+          );
+
+          return (
+            <button key={recipe.id} className={Style.recipe}>
+              <span>{recipe.title}</span>
+              <span className={Style.cal}>{totalCalories} Cal.</span>
+              <Separator.Root className={Style.SeparatorRoot} />
+            </button>
+          );
+        })}
+      </div>
     </>
   );
 }

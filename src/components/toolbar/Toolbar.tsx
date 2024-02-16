@@ -4,9 +4,11 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { PlusIcon, Cross2Icon, ChevronDownIcon } from "@radix-ui/react-icons";
 import * as Accordian from "@radix-ui/react-accordion";
 import * as Separator from "@radix-ui/react-separator";
+import { ToolbarProps } from "../../types";
 
-function Toolbar() {
+function Toolbar({ addRecipe }: ToolbarProps) {
   const [formData, setFormData] = useState({
+    id: crypto.randomUUID(),
     title: "",
     ingredient: [
       {
@@ -19,6 +21,7 @@ function Toolbar() {
         protein: "",
       },
     ],
+    totalCalories: "",
   });
 
   function handleChange(
@@ -86,7 +89,23 @@ function Toolbar() {
   }
 
   function handleSubmit() {
-    console.log(formData);
+    addRecipe(formData);
+    setFormData({
+      id: crypto.randomUUID(),
+      title: "",
+      ingredient: [
+        {
+          id: crypto.randomUUID(),
+          quantityAmount: "",
+          quantityType: "",
+          name: "",
+          carb: "",
+          fat: "",
+          protein: "",
+        },
+      ],
+      totalCalories: "",
+    });
   }
 
   const totalFat = formData.ingredient.reduce((total, ingredient) => {
