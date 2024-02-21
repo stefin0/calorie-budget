@@ -3,7 +3,9 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import Style from "./Budget.module.css";
 import Toolbar from "../../components/toolbar/Toolbar";
 import * as Separator from "@radix-ui/react-separator";
+import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { RecipeProps } from "../../types";
+import RecipeForm from "../../components/recipe-form/RecipeForm";
 
 function Budget() {
   const [caloriesEaten, setCaloriesEaten] = useLocalStorage(
@@ -14,9 +16,24 @@ function Budget() {
   const [input, setInput] = useState("");
   const caloriesRatio = (caloriesEaten / caloriesTotal) * 100;
   const [recipes, setRecipes] = useLocalStorage("recipes", []);
+  const [recipeId, setRecipeId] = useState("");
 
-  function addRecipe(newRecipe: object) {
+  function addRecipe(newRecipe: RecipeProps) {
     setRecipes([...recipes, newRecipe]);
+  }
+
+  function editRecipe(updatedRecipe: RecipeProps) {
+    setRecipes((currentRecipes) =>
+      currentRecipes.map((recipe) =>
+        recipe.id === updatedRecipe.id ? updatedRecipe : recipe,
+      ),
+    );
+  }
+
+  function deleteRecipe(recipeId: string) {
+    setRecipes((currentRecipes: RecipeProps[]) =>
+      currentRecipes.filter((recipe) => recipe.id !== recipeId),
+    );
   }
 
   return (
@@ -45,6 +62,7 @@ function Budget() {
 
       {/* RECIPES */}
       <div className={Style.recipesContainer}>
+        {recipes.length === 0 && <span>Your Cookbook is empty.</span>}
         {recipes.map((recipe: RecipeProps) => {
           const totalCalories = recipe.ingredient.reduce(
             (total, ingredient) => {
@@ -59,11 +77,26 @@ function Budget() {
           );
 
           return (
-            <button key={recipe.id} className={Style.recipe}>
-              <span>{recipe.title}</span>
-              <span className={Style.cal}>{totalCalories} Cal.</span>
-              <Separator.Root className={Style.SeparatorRoot} />
-            </button>
+            <AlertDialog.Root key={recipe.id}>
+              <AlertDialog.Trigger asChild>
+                <button
+                  className={Style.recipe}
+                  onClick={() => setRecipeId(recipe.id)}
+                >
+                  <span>{recipe.title}</span>
+                  <span className={Style.cal}>{totalCalories} Cal.</span>
+                  <Separator.Root className={Style.SeparatorRoot} />
+                </button>
+              </AlertDialog.Trigger>
+              <AlertDialog.Portal>
+                <AlertDialog.Overlay className={Style.DialogOverlay} />
+                <RecipeForm
+                  recipeId={recipeId}
+                  editRecipe={editRecipe}
+                  deleteRecipe={deleteRecipe}
+                />
+              </AlertDialog.Portal>
+            </AlertDialog.Root>
           );
         })}
       </div>

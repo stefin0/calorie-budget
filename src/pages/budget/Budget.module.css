@@ -24,12 +24,12 @@
 
 .recipesContainer {
   display: grid;
+  gap: 1rem;
 }
 
 .recipe {
   display: grid;
   justify-items: start;
-  padding: 1rem 0 0 0;
   background-color: transparent;
   border: none;
 }
@@ -55,4 +55,10 @@
 .SeparatorRoot[data-orientation="vertical"] {
   height: 100%;
   width: 1px;
+}
+
+.DialogOverlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
 }
