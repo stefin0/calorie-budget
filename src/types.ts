@@ -14,6 +14,9 @@ export type RecipeProps = {
   ingredient: IngredientProps[];
 };
 
-export type ToolbarProps = {
-  addRecipe: (newRecipe: RecipeProps) => void;
+export type RecipeFormProps = {
+  recipeId?: string;
+  addRecipe?: (newRecipe: RecipeProps) => void;
+  editRecipe?: (updatedRecipe: RecipeProps) => void;
+  deleteRecipe?: (recipeId: string) => void;
 };
