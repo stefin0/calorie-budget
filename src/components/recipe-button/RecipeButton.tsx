@@ -16,19 +16,22 @@ function RecipeButton({
 }: RecipeButtonProps) {
   function handleCaloriesEat(totalCalories: number, recipe: RecipeProps) {
     setCaloriesEaten((prevCaloriesEaten) => +prevCaloriesEaten + totalCalories);
-    setRecipesEaten((prevRecipesEaten) => [
-      ...prevRecipesEaten,
-      { ...recipe, idToday: crypto.randomUUID() },
-    ]);
+
+    setRecipesEaten &&
+      setRecipesEaten((prevRecipesEaten) => [
+        ...prevRecipesEaten,
+        { ...recipe, idToday: crypto.randomUUID() },
+      ]);
   }
 
   function handleCaloriesRemove(totalCalories: number, recipe: RecipeProps) {
     setCaloriesEaten((prevCaloriesEaten) => +prevCaloriesEaten - totalCalories);
-    setRecipesEaten((prevRecipesEaten) =>
-      prevRecipesEaten.filter(
-        (eatenRecipe) => eatenRecipe.idToday != recipe.idToday,
-      ),
-    );
+    setRecipesEaten &&
+      setRecipesEaten((prevRecipesEaten) =>
+        prevRecipesEaten.filter(
+          (eatenRecipe) => eatenRecipe.idToday != recipe.idToday
+        )
+      );
   }
 
   return (

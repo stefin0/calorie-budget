@@ -4,7 +4,6 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import RecipeButton from "../recipe-button/RecipeButton";
 import { RecipeProps, TodaysSummaryProps } from "../../types";
 import NutritionFacts from "../nutrition-facts/NutritionFacts";
-import useLocalStorage from "../../hooks/useLocalStorage";
 
 function TodaysSummary({
   recipes,
@@ -24,7 +23,7 @@ function TodaysSummary({
         9 * total.totalFat + 4 * total.totalCarb + 4 * total.totalProtein;
       return total;
     },
-    { totalFat: 0, totalCarb: 0, totalProtein: 0, totalCalories: 0 },
+    { totalFat: 0, totalCarb: 0, totalProtein: 0, totalCalories: 0 }
   );
 
   return (
@@ -50,12 +49,12 @@ function TodaysSummary({
       {/* RECIPES EATEN container */}
       <div className={Style.recipesContainer}>
         <RecipeButton
+          isEditable={false}
           recipes={recipes}
           recipeId={recipeId}
           setRecipeId={setRecipeId}
           setCaloriesEaten={setCaloriesEaten}
           setRecipesEaten={setRecipesEaten}
-          isEditable={false}
         />
       </div>
     </Dialog.Content>

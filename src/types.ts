@@ -32,18 +32,26 @@ export type RecipeButtonProps = {
   recipes: RecipeProps[];
   recipeId: string;
   setRecipeId: (recipeId: string) => void;
-  setCaloriesEaten: (calories: number) => void;
+  setCaloriesEaten: (
+    updateFunction: (prevCaloriesEaten: number) => number
+  ) => void;
   editRecipe?: (updatedRecipe: RecipeProps) => void;
   deleteRecipe?: (recipeId: string) => void;
-  setRecipesEaten?: (prevRecipesEaten: RecipeProps[]) => void;
+  setRecipesEaten?: (
+    updateFunction: (prevRecipesEaten: RecipeProps[]) => RecipeProps[]
+  ) => void;
 };
 
 export type TodaysSummaryProps = {
   recipes: RecipeProps[];
   recipeId: string;
   setRecipeId: (recipeId: string) => void;
-  setCaloriesEaten: (calories: number) => void;
-  setRecipesEaten: (recipe: RecipeProps) => void;
+  setCaloriesEaten: (
+    updateFunction: (prevCaloriesEaten: number) => number
+  ) => void;
+  setRecipesEaten: (
+    updateFunction: (prevRecipesEaten: RecipeProps[]) => RecipeProps[]
+  ) => void;
 };
 
 export type NutritionFactsProps = {

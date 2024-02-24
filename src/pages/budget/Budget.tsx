@@ -10,10 +10,9 @@ import RecipeButton from "../../components/recipe-button/RecipeButton";
 function Budget() {
   const [caloriesEaten, setCaloriesEaten] = useLocalStorage(
     "caloriesEaten",
-    "0",
+    "0"
   );
   const [caloriesTotal /*setCaloriesTota*/] = useLocalStorage("bmr", "0");
-  const [input, setInput] = useState("");
   const caloriesRatio = (caloriesEaten / caloriesTotal) * 100;
   const [recipes, setRecipes] = useLocalStorage("recipes", []);
   const [recipesEaten, setRecipesEaten] = useLocalStorage("recipesEaten", []);
@@ -26,14 +25,14 @@ function Budget() {
   function editRecipe(updatedRecipe: RecipeProps) {
     setRecipes((currentRecipes: RecipeProps[]) =>
       currentRecipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? updatedRecipe : recipe,
-      ),
+        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+      )
     );
   }
 
   function deleteRecipe(recipeId: string) {
     setRecipes((currentRecipes: RecipeProps[]) =>
-      currentRecipes.filter((recipe) => recipe.id !== recipeId),
+      currentRecipes.filter((recipe) => recipe.id !== recipeId)
     );
   }
 
@@ -43,8 +42,9 @@ function Budget() {
       <div
         className={Style.ring}
         style={{
-          background: `conic-gradient(black ${caloriesRatio * 3.6
-            }deg, grey 0deg)`,
+          background: `conic-gradient(black ${
+            caloriesRatio * 3.6
+          }deg, grey 0deg)`,
         }}
       >
         <Dialog.Root>
