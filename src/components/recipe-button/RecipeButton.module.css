@@ -1,32 +1,3 @@
-.ring {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: conic-gradient(black 0deg, grey 0deg);
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  margin: 0 auto;
-}
-
-.ringBefore {
-  content: "";
-  position: absolute;
-  height: 210px;
-  width: 210px;
-  border-radius: 50%;
-  background-color: white;
-}
-
-.ringBefore:hover,
-.ringBefore:hover {
-  background-color: silver;
-}
-
-.pValue {
-  position: relative;
-}
-
 .recipe {
   display: flex;
   justify-content: space-between;

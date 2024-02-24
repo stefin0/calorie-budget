@@ -3,19 +3,20 @@ import Style from "./RecipeForm.module.css";
 import {
   PlusIcon,
   Cross2Icon,
-  ChevronDownIcon,
   DotsVerticalIcon,
   Pencil1Icon,
   TrashIcon,
+  ChevronDownIcon,
 } from "@radix-ui/react-icons";
-import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import * as Accordian from "@radix-ui/react-accordion";
-import * as Separator from "@radix-ui/react-separator";
+import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { RecipeFormProps, RecipeProps } from "../../types";
+import NutritionFacts from "../nutrition-facts/NutritionFacts";
 
 function RecipeForm({
+  isEditable,
   recipeId,
   addRecipe,
   editRecipe,
@@ -28,6 +29,7 @@ function RecipeForm({
   const [formData, setFormData] = useState(
     existingRecipe ?? {
       id: crypto.randomUUID(),
+      idToday: crypto.randomUUID(),
       title: "",
       ingredient: [
         {
@@ -40,7 +42,6 @@ function RecipeForm({
           protein: "",
         },
       ],
-      totalCalories: "",
     },
   );
   const [isEditing, setIsEditing] = useState(!recipeId);
@@ -142,6 +143,7 @@ function RecipeForm({
     addRecipe && addRecipe(formData);
     setFormData({
       id: crypto.randomUUID(),
+      idToday: crypto.randomUUID(),
       title: "",
       ingredient: [
         {
@@ -174,7 +176,7 @@ function RecipeForm({
   return (
     <AlertDialog.Content className={Style.DialogContent}>
       {/* DROPDOWN MENU */}
-      {recipeId && (
+      {recipeId && isEditable && (
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button className={Style.dropdownMenuButton}>
@@ -316,15 +318,17 @@ function RecipeForm({
       </div>
 
       {/* NEW INGREDIENT button */}
-      <button
-        className={Style.newIngredientButton}
-        onClick={newIngredient}
-        disabled={!isEditing}
-      >
-        <PlusIcon />
-      </button>
+      {isEditable && (
+        <button
+          className={Style.newIngredientButton}
+          onClick={newIngredient}
+          disabled={!isEditing}
+        >
+          <PlusIcon />
+        </button>
+      )}
 
-      {/* SUMMARY */}
+      {/* NUTRITION FACTS */}
       <Accordian.Root
         className={Style.AccordianRoot}
         type="single"
@@ -336,36 +340,13 @@ function RecipeForm({
             <span>Summary</span>
             <ChevronDownIcon className={Style.AccordionChevron} aria-hidden />
           </Accordian.Trigger>
-          <Accordian.Content className={Style.AccordianContent}>
-            {/* TOTAL CALORIES */}
-            <span
-              className={`${Style.calories} ${Style.bold}`}
-              style={{ marginRight: "2rem" }}
-            >
-              Calories
-            </span>
-            <span className={`${Style.caloriesTotal} ${Style.bold}`}>
-              {totalCalories}
-            </span>
-            <Separator.Root
-              className={Style.SeparatorRoot}
-              style={{ height: "3px", marginBottom: "1rem" }}
+          <Accordian.Content>
+            <NutritionFacts
+              totalFat={totalFat}
+              totalCarb={totalCarb}
+              totalProtein={totalProtein}
+              totalCalories={totalCalories}
             />
-
-            {/* TOTAL FAT */}
-            <span className={Style.bold}>Fat </span>
-            <span>{totalFat}</span>
-            <Separator.Root className={Style.SeparatorRoot} />
-
-            {/* TOTAL CARB */}
-            <span className={Style.bold}>Carbohydrate </span>
-            <span>{totalCarb}</span>
-            <Separator.Root className={Style.SeparatorRoot} />
-
-            {/* TOTAL PROTEIN */}
-            <span className={Style.bold}>Protein </span>
-            <span>{totalProtein}</span>
-            <Separator.Root className={Style.SeparatorRoot} />
           </Accordian.Content>
         </Accordian.Item>
       </Accordian.Root>

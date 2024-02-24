@@ -1,0 +1,29 @@
+.containter {
+  font-family: Helvetica;
+}
+
+.calories {
+  font-size: 1.25rem;
+}
+
+.caloriesTotal {
+  font-size: 1.75rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.SeparatorRoot {
+  background-color: black;
+}
+
+.SeparatorRoot[data-orientation="horizontal"] {
+  height: 1px;
+  width: 100%;
+}
+
+.SeparatorRoot[data-orientation="vertical"] {
+  height: 100%;
+  width: 1px;
+}

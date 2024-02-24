@@ -46,7 +46,7 @@ function Calculator() {
 
         {/*WEIGHT input*/}
         <div className={Style.labelInput}>
-          <label htmlFor="weight">Weight</label>
+          <label htmlFor="weight">Weight (kg)</label>
           <input
             id="weight"
             name="weight"
@@ -59,7 +59,7 @@ function Calculator() {
 
         {/*HEIGHT input*/}
         <div className={Style.labelInput}>
-          <label htmlFor="height">Height</label>
+          <label htmlFor="height">Height (cm)</label>
           <input
             id="height"
             name="height"
@@ -85,7 +85,7 @@ function Calculator() {
 
         <button>Calculate BMR</button>
 
-        <p>Your BMR is {bmr}</p>
+        {bmr !== 0 && <span>Your BMR is {bmr}</span>}
       </form>
     </div>
   );

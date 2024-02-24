@@ -2,10 +2,10 @@ import { useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import Style from "./Budget.module.css";
 import Toolbar from "../../components/toolbar/Toolbar";
-import * as Separator from "@radix-ui/react-separator";
-import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import * as Dialog from "@radix-ui/react-dialog";
 import { RecipeProps } from "../../types";
-import RecipeForm from "../../components/recipe-form/RecipeForm";
+import TodaysSummary from "../../components/todays-summary/TodaysSummary";
+import RecipeButton from "../../components/recipe-button/RecipeButton";
 
 function Budget() {
   const [caloriesEaten, setCaloriesEaten] = useLocalStorage(
@@ -16,6 +16,7 @@ function Budget() {
   const [input, setInput] = useState("");
   const caloriesRatio = (caloriesEaten / caloriesTotal) * 100;
   const [recipes, setRecipes] = useLocalStorage("recipes", []);
+  const [recipesEaten, setRecipesEaten] = useLocalStorage("recipesEaten", []);
   const [recipeId, setRecipeId] = useState("");
 
   function addRecipe(newRecipe: RecipeProps) {
@@ -23,7 +24,7 @@ function Budget() {
   }
 
   function editRecipe(updatedRecipe: RecipeProps) {
-    setRecipes((currentRecipes) =>
+    setRecipes((currentRecipes: RecipeProps[]) =>
       currentRecipes.map((recipe) =>
         recipe.id === updatedRecipe.id ? updatedRecipe : recipe,
       ),
@@ -46,60 +47,41 @@ function Budget() {
             }deg, grey 0deg)`,
         }}
       >
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <button className={Style.ringBefore}></button>
+          </Dialog.Trigger>
+          <Dialog.Portal>
+            <Dialog.Overlay className={Style.DialogOverlay}></Dialog.Overlay>
+            <TodaysSummary
+              recipes={recipesEaten}
+              setRecipesEaten={setRecipesEaten}
+              recipeId={recipeId}
+              setRecipeId={setRecipeId}
+              setCaloriesEaten={setCaloriesEaten}
+            />
+          </Dialog.Portal>
+        </Dialog.Root>
         <span className={Style.pValue}>
           {caloriesEaten}/{caloriesTotal}
         </span>
       </div>
-      <input type="number" onChange={(e) => setInput(e.target.value)} />
-      <button onClick={() => setCaloriesEaten(input)}>
-        Set Calories Eaten
-      </button>
 
       {/* TOOLBAR */}
       <Toolbar addRecipe={addRecipe} />
 
-      <h1>{caloriesRatio.toFixed(2)}</h1>
-
       {/* RECIPES */}
-      <div className={Style.recipesContainer}>
-        {recipes.length === 0 && <span>Your Cookbook is empty.</span>}
-        {recipes.map((recipe: RecipeProps) => {
-          const totalCalories = recipe.ingredient.reduce(
-            (total, ingredient) => {
-              return (
-                total +
-                9 * +ingredient.fat +
-                4 * +ingredient.carb +
-                4 * +ingredient.protein
-              );
-            },
-            0,
-          );
-
-          return (
-            <AlertDialog.Root key={recipe.id}>
-              <AlertDialog.Trigger asChild>
-                <button
-                  className={Style.recipe}
-                  onClick={() => setRecipeId(recipe.id)}
-                >
-                  <span>{recipe.title}</span>
-                  <span className={Style.cal}>{totalCalories} Cal.</span>
-                  <Separator.Root className={Style.SeparatorRoot} />
-                </button>
-              </AlertDialog.Trigger>
-              <AlertDialog.Portal>
-                <AlertDialog.Overlay className={Style.DialogOverlay} />
-                <RecipeForm
-                  recipeId={recipeId}
-                  editRecipe={editRecipe}
-                  deleteRecipe={deleteRecipe}
-                />
-              </AlertDialog.Portal>
-            </AlertDialog.Root>
-          );
-        })}
-      </div>
+      {recipes.length === 0 && <span>Your Cookbook is empty.</span>}
+      <RecipeButton
+        recipes={recipes}
+        recipeId={recipeId}
+        setRecipeId={setRecipeId}
+        editRecipe={editRecipe}
+        deleteRecipe={deleteRecipe}
+        setCaloriesEaten={setCaloriesEaten}
+        setRecipesEaten={setRecipesEaten}
+        isEditable={true}
+      />
     </>
   );
 }
