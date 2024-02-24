@@ -13,6 +13,7 @@
 
 .dropdownMenuButton {
   justify-self: right;
+  display: inline-flex;
 }
 
 .dropdownMenuContent {
@@ -80,6 +81,13 @@
   right: 16px;
 }
 
+.newIngredientButton {
+  justify-self: left;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .AccordianRoot {
   justify-self: start;
 }
@@ -92,43 +100,6 @@
   border: none;
 }
 
-.AccordianContent {
-  font-family: Helvetica;
-}
-
 .AccordionTrigger[data-state="open"]>.AccordionChevron {
   transform: rotate(180deg);
-}
-
-.calories {
-  font-size: 1.25rem;
-}
-
-.caloriesTotal {
-  font-size: 1.75rem;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.SeparatorRoot {
-  background-color: black;
-}
-
-.SeparatorRoot[data-orientation="horizontal"] {
-  height: 1px;
-  width: 100%;
-}
-
-.SeparatorRoot[data-orientation="vertical"] {
-  height: 100%;
-  width: 1px;
-}
-
-.newIngredientButton {
-  justify-self: left;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
 }
