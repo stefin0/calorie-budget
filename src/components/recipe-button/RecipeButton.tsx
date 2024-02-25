@@ -9,14 +9,11 @@ function RecipeButton({
   recipes,
   recipeId,
   setRecipeId,
-  setCaloriesEaten,
   editRecipe,
   deleteRecipe,
   setRecipesEaten,
 }: RecipeButtonProps) {
-  function handleCaloriesEat(totalCalories: number, recipe: RecipeProps) {
-    setCaloriesEaten((prevCaloriesEaten) => +prevCaloriesEaten + totalCalories);
-
+  function handleCaloriesEat(recipe: RecipeProps) {
     setRecipesEaten &&
       setRecipesEaten((prevRecipesEaten) => [
         ...prevRecipesEaten,
@@ -24,13 +21,12 @@ function RecipeButton({
       ]);
   }
 
-  function handleCaloriesRemove(totalCalories: number, recipe: RecipeProps) {
-    setCaloriesEaten((prevCaloriesEaten) => +prevCaloriesEaten - totalCalories);
+  function handleCaloriesRemove(recipe: RecipeProps) {
     setRecipesEaten &&
       setRecipesEaten((prevRecipesEaten) =>
         prevRecipesEaten.filter(
-          (eatenRecipe) => eatenRecipe.idToday != recipe.idToday
-        )
+          (eatenRecipe) => eatenRecipe.idToday != recipe.idToday,
+        ),
       );
   }
 
@@ -70,15 +66,9 @@ function RecipeButton({
                 </AlertDialog.Portal>
               </AlertDialog.Root>
               {editRecipe ? (
-                <button
-                  onClick={() => handleCaloriesEat(totalCalories, recipe)}
-                >
-                  Eat
-                </button>
+                <button onClick={() => handleCaloriesEat(recipe)}>Eat</button>
               ) : (
-                <button
-                  onClick={() => handleCaloriesRemove(totalCalories, recipe)}
-                >
+                <button onClick={() => handleCaloriesRemove(recipe)}>
                   Remove
                 </button>
               )}
