@@ -18,6 +18,7 @@ button,
 textarea,
 select {
   font: inherit;
+  color: black;
   padding: 1px;
   border: 1px solid rgb(118, 118, 118);
   border-radius: 2px;

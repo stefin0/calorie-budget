@@ -7,7 +7,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 281px;
+  width: clamp(281px, 80vw, 384px);
   /* min px for no x-scroll */
 }
 
@@ -50,17 +50,9 @@
 
 .ingredientInfo {
   position: relative;
+  max-width: 100%;
   padding: 1rem;
   margin-bottom: 1rem;
-}
-
-.ingredientInfo>* input[type="number"],
-.ingredientInfo>* select {
-  width: 7ch;
-}
-
-.ingredientInfo>* input[name="name"] {
-  max-width: calc(3 * 7ch + 32px);
 }
 
 .labelInput {
@@ -70,8 +62,19 @@
 .quantityRow,
 .macrosRow,
 .actionButtons {
-  display: flex;
+  display: inline-flex;
   gap: 0 1rem;
+}
+
+.quantityRow> input[type="number"],
+.quantityRow> select {
+  flex: 1 1 auto;
+}
+
+.quantityRow> input[type="number"],
+.quantityRow> select,
+.macrosRow>* input[type="number"] {
+  width: clamp(7ch, 100%, 94px);
 }
 
 .deleteIngredientButton {
