@@ -59,22 +59,30 @@
   display: grid;
 }
 
+.ingredientRow,
 .quantityRow,
 .macrosRow,
 .actionButtons {
-  display: inline-flex;
+  display: flex;
   gap: 0 1rem;
 }
 
-.quantityRow> input[type="number"],
-.quantityRow> select {
-  flex: 1 1 auto;
+.ingredientRow>div,
+.quantityRow>div,
+.macrosRow>div {
+  min-width: 0;
+  flex: 1;
 }
 
-.quantityRow> input[type="number"],
-.quantityRow> select,
-.macrosRow>* input[type="number"] {
-  width: clamp(7ch, 100%, 94px);
+.ingredientRow input,
+.quantityRow input,
+.macrosRow input {
+  width: 100%;
+  min-width: 0;
+}
+
+.quantityRow {
+  margin-bottom: 1rem;
 }
 
 .deleteIngredientButton {

@@ -14,6 +14,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { RecipeFormProps, RecipeProps } from "../../types";
 import NutritionFacts from "../nutrition-facts/NutritionFacts";
+import units from "./units";
 
 function RecipeForm({
   isEditable,
@@ -110,32 +111,13 @@ function RecipeForm({
     }));
   }
 
-  function ActionButtons() {
-    if (recipeId && !isEditing) {
-      return <AlertDialog.Cancel>Close</AlertDialog.Cancel>;
-    } else if (recipeId && isEditing) {
-      return (
-        <>
-          <button onClick={() => setIsEditing((prev) => !prev)}>Cancel</button>
-          <button onClick={saveRecipe}>Save</button>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <AlertDialog.Cancel asChild>
-            <button>Cancel</button>
-          </AlertDialog.Cancel>
-          <AlertDialog.Action asChild>
-            <button onClick={handleSubmit}>Create</button>
-          </AlertDialog.Action>
-        </>
-      );
-    }
-  }
-
   function saveRecipe() {
     editRecipe && editRecipe(formData);
+    setIsEditing((prev) => !prev);
+  }
+
+  function cancelEdit() {
+    setFormData(existingRecipe);
     setIsEditing((prev) => !prev);
   }
 
@@ -172,6 +154,30 @@ function RecipeForm({
   }, 0);
 
   const totalCalories = 9 * totalFat + 4 * totalCarb + 4 * totalProtein;
+
+  function ActionButtons() {
+    if (recipeId && !isEditing) {
+      return <AlertDialog.Cancel>Close</AlertDialog.Cancel>;
+    } else if (recipeId && isEditing) {
+      return (
+        <>
+          <button onClick={cancelEdit}>Cancel</button>
+          <button onClick={saveRecipe}>Save</button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <AlertDialog.Cancel asChild>
+            <button>Cancel</button>
+          </AlertDialog.Cancel>
+          <AlertDialog.Action asChild>
+            <button onClick={handleSubmit}>Create</button>
+          </AlertDialog.Action>
+        </>
+      );
+    }
+  }
 
   return (
     <AlertDialog.Content className={Style.DialogContent}>
@@ -218,7 +224,7 @@ function RecipeForm({
         disabled={!isEditing}
       />
 
-      <div className={Style.ingredientsContainer}>
+      <div id="ingredientsContainer" className={Style.ingredientsContainer}>
         {formData.ingredient.map((ingredient, index) => (
           <fieldset
             key={ingredient.id}
@@ -226,10 +232,24 @@ function RecipeForm({
             disabled={!isEditing}
           >
             <legend>Ingredient {index + 1}</legend>
+            {/* INGREDIENT row */}
+            <div className={Style.ingredientRow}>
+              <div className={Style.labelInput}>
+                <label htmlFor="name">Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  onChange={(e) => handleChange(e, ingredient.id)}
+                  value={ingredient.name}
+                  required
+                />
+              </div>
+            </div>
+
             {/* QUANTITY row */}
-            <div className={Style.labelInput}>
-              <label>Quantity</label>
-              <div className={Style.quantityRow}>
+            <div className={Style.quantityRow}>
+              <div className={Style.labelInput}>
+                <label>Quantity</label>
                 <input
                   name="quantityAmount"
                   type="number"
@@ -238,26 +258,19 @@ function RecipeForm({
                   min="0"
                   required
                 />
+              </div>
+              <div className={Style.labelInput}>
+                <label>Unit</label>
                 <select
                   name="quantityType"
                   onChange={(e) => handleChange(e, ingredient.id)}
                 >
                   <option value=""></option>
-                  <option value="mL">mL</option>
+                  {units.map((unit) => (
+                    <option value={unit.value}>{unit.label}</option>
+                  ))}
                 </select>
               </div>
-            </div>
-
-            {/* INGREDIENT row */}
-            <div className={Style.labelInput}>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                name="name"
-                onChange={(e) => handleChange(e, ingredient.id)}
-                value={ingredient.name}
-                required
-              />
             </div>
 
             {/* MACRONUTRIENT row */}

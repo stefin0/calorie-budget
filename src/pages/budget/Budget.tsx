@@ -8,9 +8,6 @@ import TodaysSummary from "../../components/todays-summary/TodaysSummary";
 import RecipeButton from "../../components/recipe-button/RecipeButton";
 
 function Budget() {
-  //TODO: fix 404 on refresh: https://dev.to/stanlisberg/resolving-the-vercel-404-page-not-found-error-after-page-refresh-9b9#:~:text=To%20rectify%20the%20404%20Not,root%20directory%20of%20your%20project.
-  //TODO: fix 404 on refresh: https://www.google.com/search?q=vercel+404+not+found+when+refreshing&oq=vercel+404+not+found+when+refreshing&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAHSAQg2MDQ1ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8
-
   const [caloriesTotal /*setCaloriesTota*/] = useLocalStorage("bmr", "0");
   const [recipes, setRecipes] = useLocalStorage("recipes", []);
   const [recipesEaten, setRecipesEaten] = useLocalStorage("recipesEaten", []);
@@ -50,7 +47,7 @@ function Budget() {
         9 * total.totalFat + 4 * total.totalCarb + 4 * total.totalProtein;
       return total;
     },
-    { totalFat: 0, totalCarb: 0, totalProtein: 0, totalCalories: 0 }
+    { totalFat: 0, totalCarb: 0, totalProtein: 0, totalCalories: 0 },
   );
 
   const caloriesRatio = (totals.totalCalories / caloriesTotal) * 100;
