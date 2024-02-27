@@ -264,10 +264,17 @@ function RecipeForm({
                 <select
                   name="quantityType"
                   onChange={(e) => handleChange(e, ingredient.id)}
+                  defaultValue={ingredient.quantityType}
                 >
                   <option value=""></option>
-                  {units.map((unit) => (
-                    <option value={unit.value}>{unit.label}</option>
+                  {units.map((group) => (
+                    <optgroup label={group.category} key={group.category}>
+                      {group.units.map((unit) => (
+                        <option value={unit.value} key={unit.value}>
+                          {unit.label}
+                        </option>
+                      ))}
+                    </optgroup>
                   ))}
                 </select>
               </div>
