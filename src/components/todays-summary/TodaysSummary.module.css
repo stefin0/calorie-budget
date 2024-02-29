@@ -12,6 +12,7 @@
 }
 
 .closeDialogButton {
+  min-height: auto;
   justify-self: right;
   display: inline-flex;
 }

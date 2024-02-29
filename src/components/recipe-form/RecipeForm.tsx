@@ -185,7 +185,7 @@ function RecipeForm({
       {recipeId && isEditable && (
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
-            <button className={Style.dropdownMenuButton}>
+            <button className={`${Style.dropdownMenuButton} ${Style.smallButton}`}>
               <DotsVerticalIcon />
             </button>
           </DropdownMenu.Trigger>
@@ -326,7 +326,7 @@ function RecipeForm({
             </div>
             {index > 0 && (
               <button
-                className={Style.deleteIngredientButton}
+                className={`${Style.deleteIngredientButton} ${Style.smallButton}`}
                 onClick={() => deleteIngredient(ingredient.id)}
                 aria-label="Delete"
               >
@@ -340,7 +340,7 @@ function RecipeForm({
       {/* NEW INGREDIENT button */}
       {isEditable && (
         <button
-          className={Style.newIngredientButton}
+          className={`${Style.newIngredientButton} ${Style.smallButton}`}
           onClick={newIngredient}
           disabled={!isEditing}
         >
