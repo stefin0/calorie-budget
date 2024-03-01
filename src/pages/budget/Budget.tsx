@@ -8,7 +8,7 @@ import TodaysSummary from "../../components/todays-summary/TodaysSummary";
 import RecipeButton from "../../components/recipe-button/RecipeButton";
 
 function Budget() {
-  const [caloriesTotal /*setCaloriesTota*/] = useLocalStorage("bmr", "0");
+  const [caloriesTotal /*setCaloriesTota*/] = useLocalStorage("goalCal1", "0");
   const [recipes, setRecipes] = useLocalStorage("recipes", []);
   const [recipesEaten, setRecipesEaten] = useLocalStorage("recipesEaten", []);
   const [recipeId, setRecipeId] = useState("");
