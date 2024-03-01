@@ -4,15 +4,27 @@
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+  display: grid;
   gap: 1rem;
-  border: 1px solid black;
-  padding: 1rem;
+  /* border: 1px solid black; */
+  /* padding: 1rem; */
+}
+
+.fieldset {
+  border: none;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.boldLabel {
+  font-weight: 600;
 }
 
 .labelInput {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+}
+
+.labelInput>* {
+  width: 185px;
 }
