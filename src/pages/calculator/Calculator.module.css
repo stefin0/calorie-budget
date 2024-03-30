@@ -9,6 +9,7 @@
 }
 
 .fieldset {
+  min-width: 304px;
   border: none;
   display: grid;
   justify-items: center;
@@ -18,7 +19,6 @@
 }
 
 .metricToggle {
-  /* justify-self: right; */
   display: flex;
   align-items: center;
 }
