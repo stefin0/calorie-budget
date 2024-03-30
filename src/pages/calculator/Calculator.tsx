@@ -44,7 +44,7 @@ function Calculator() {
       const feet = +formData.ft + +formData.in / 12;
       cm = feet * 30.48;
 
-      weight = +formData.lbs/2.205
+      weight = +formData.lbs / 2.205;
     } else {
       cm = +formData.cm;
       weight = +formData.kg;
@@ -143,18 +143,23 @@ function Calculator() {
             <label htmlFor="weight" className={Style.boldLabel}>
               Weight
             </label>
-            <input
-              id="weight"
-              name={formData.unit === "Imperial" ? "lbs" : "kg"}
-              type="number"
-              className={Style.inputUnit}
-              onChange={handleChange}
-              value={formData.unit === "Imperial" ? formData.lbs : formData.kg}
-              required
-            />
-            <span className={Style.measureUnit}>
-              {formData.unit === "Imperial" ? "lbs" : "kg"}
-            </span>
+            <div>
+              <input
+                id="weight"
+                name={formData.unit === "Imperial" ? "lbs" : "kg"}
+                type="number"
+                className={Style.inputUnit}
+                style={{ width: "100%" }}
+                onChange={handleChange}
+                value={
+                  formData.unit === "Imperial" ? formData.lbs : formData.kg
+                }
+                required
+              />
+              <span className={Style.measureUnit}>
+                {formData.unit === "Imperial" ? "lbs" : "kg"}
+              </span>
+            </div>
           </div>
 
           {/*HEIGHT input*/}
@@ -162,7 +167,7 @@ function Calculator() {
             <label htmlFor="height" className={Style.boldLabel}>
               Height
             </label>
-            <div className={Style.heightField}>
+            <div>
               {formData.unit === "Imperial" ? (
                 <>
                   <input
