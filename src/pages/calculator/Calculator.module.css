@@ -6,8 +6,6 @@
 .form {
   display: grid;
   gap: 1rem;
-  /* border: 1px solid black; */
-  /* padding: 1rem; */
 }
 
 .fieldset {
@@ -15,6 +13,41 @@
   display: grid;
   justify-items: center;
   gap: 1rem;
+  padding: 2rem 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.metricToggle {
+  /* justify-self: right; */
+  display: flex;
+  align-items: center;
+}
+
+.SwitchRoot {
+  width: 48px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 96px;
+  position: relative;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.SwitchRoot:focus {
+  box-shadow: 0 0 0 2px black;
+}
+
+.SwitchThumb {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 96px;
+  transition: transform 100ms;
+  transform: translateX(2px);
+  will-change: transform;
+}
+
+.SwitchThumb[data-state="checked"] {
+  transform: translateX(18px);
 }
 
 .boldLabel {
@@ -22,9 +55,29 @@
 }
 
 .labelInput {
+  position: relative;
   display: grid;
 }
 
 .labelInput>* {
   width: 185px;
+}
+
+.inputUnit {
+  padding-right: 2rem;
+}
+
+.measureUnit, .measureUnitFt {
+  position: absolute;
+  top: 27px;
+  left: 159px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.measureUnitFt {
+  left: 75px;
+}
+
+.heightField {
+  display: flex;
 }
